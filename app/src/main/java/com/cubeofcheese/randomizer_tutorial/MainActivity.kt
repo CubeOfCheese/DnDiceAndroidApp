@@ -33,9 +33,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         rollButton.setOnClickListener {
-            val rand = Random().nextInt(seekBar.progress) + 1
-            resultsTextView.text = rand.toString()
-
+            if (seekBar.progress == 0) {
+                resultsTextView.text = "0"
+            } else {
+                val rand = Random().nextInt(seekBar.progress) + 1
+                resultsTextView.text = rand.toString()
+            }
         }
     }
 
