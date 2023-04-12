@@ -1,4 +1,4 @@
-package com.cubeofcheese.randomizer_tutorial
+package com.cubeofcheese.dndiceandroidapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import com.cubeofcheese.dndiceandroidapp.R
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

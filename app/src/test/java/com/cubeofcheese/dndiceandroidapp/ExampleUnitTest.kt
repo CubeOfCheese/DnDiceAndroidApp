@@ -1,4 +1,4 @@
-package com.cubeofcheese.randomizer_tutorial
+package com.cubeofcheese.dndiceandroidapp
 
 import org.junit.Test
 

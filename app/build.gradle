@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.cubeofcheese.randomizer_tutorial'
+    namespace 'com.cubeofcheese.dndiceandroidapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.cubeofcheese.randomizer_tutorial"
+        applicationId "com.cubeofcheese.dndiceandroidapp"
         minSdk 24
         targetSdk 33
         versionCode 1

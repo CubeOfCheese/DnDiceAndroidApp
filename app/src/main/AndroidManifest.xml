@@ -12,7 +12,7 @@
         android:theme="@style/Theme.RandomizerTutorial"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.cubeofcheese.dndiceandroidapp.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
