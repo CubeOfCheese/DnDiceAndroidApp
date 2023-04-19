@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import org.w3c.dom.Text
 import java.util.*
 
@@ -24,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
 class CustomFragment : Fragment() {
     lateinit var resultsTextView: TextView
     lateinit var dieRolledView: TextView
-    lateinit var seekBar: SeekBar
+    lateinit var dieSizeInput: EditText
     lateinit var maxTextView: TextView
     lateinit var customRollButton: Button
 
@@ -46,32 +48,20 @@ class CustomFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         resultsTextView = view.findViewById(R.id.resultsTextView)
         dieRolledView = view.findViewById(R.id.dieRolledView)
-        seekBar = view.findViewById(R.id.seekBar)
-        maxTextView = view.findViewById(R.id.maxTextView)
+        dieSizeInput = view.findViewById(R.id.dieSizeInput)
         customRollButton = view.findViewById(R.id.rollButton)
 
-        seekBar!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekbar: SeekBar?, p1: Int, p2: Boolean) {
-                maxTextView.text = seekbar?.progress.toString()
-            }
-
-            override fun onStartTrackingTouch(p0: SeekBar?) {
-//                TODO("Not yet implemented")
-            }
-
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-//                TODO("Not yet implemented")
-            }
-        })
-
+        dieSizeInput.doOnTextChanged { text, start, before, count ->
+            customRollButton.isEnabled = !text.isNullOrBlank() // disabled when text is blank
+        }
         customRollButton.setOnClickListener {
-            if (seekBar.progress == 0) {
+            if (dieSizeInput.equals(0)) {
                 resultsTextView.text = "0"
             } else {
-                val rand = Random().nextInt(seekBar.progress) + 1
+                val rand = Random().nextInt(Integer.valueOf(dieSizeInput.text.toString())) + 1
                 resultsTextView.text = rand.toString()
             }
-            dieRolledView.text = "d" + seekBar.progress.toString()
+            dieRolledView.text = "d" + dieSizeInput.text.toString()
         }
     }
 
