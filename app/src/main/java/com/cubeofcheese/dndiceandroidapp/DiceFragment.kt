@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RadioButton
 import android.widget.TextView
 import org.w3c.dom.Text
 import java.util.*
@@ -22,13 +23,24 @@ private const val ARG_PARAM2 = "param2"
  */
 class DiceFragment : Fragment() {
     
-    lateinit var d4Button: Button 
-    lateinit var d6Button: Button 
+    lateinit var advantageRoll1: TextView
+    lateinit var advantageRoll2: TextView
+
+    lateinit var advantageRadioButton: RadioButton
+    lateinit var straightRadioButton: RadioButton
+    lateinit var disadvantageRadioButton: RadioButton
+
+    lateinit var d4Button: Button
+    lateinit var d6Button: Button
     lateinit var d8Button: Button 
     lateinit var d10Button: Button 
     lateinit var d20Button: Button 
     lateinit var resultsTextView: TextView 
-    lateinit var dieRolledView: TextView 
+    lateinit var dieRolledView: TextView
+
+    private val rolls: IntArray = intArrayOf(-1, -1)
+    // represents the die currently being used to roll (dis)advantage
+    private var advantageDie: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,33 +65,111 @@ class DiceFragment : Fragment() {
         d10Button = view.findViewById(R.id.d10Button)
         d20Button = view.findViewById(R.id.d20Button)
 
+        advantageRoll1 = view.findViewById(R.id.advantageRoll1)
+        advantageRoll2 = view.findViewById(R.id.advantageRoll2)
+
+        advantageRadioButton = view.findViewById(R.id.advantageRadioButton)
+        straightRadioButton = view.findViewById(R.id.straightRadioButton)
+        disadvantageRadioButton = view.findViewById(R.id.disadvantageRadioButton)
+
         resultsTextView = view.findViewById(R.id.resultsTextView)
         dieRolledView = view.findViewById(R.id.dieRolledView)
 
+        advantageRadioButton.setOnClickListener {
+            advantageRoll1.text = ""
+            advantageRoll2.text = ""
+            advantageDie = -1
+            resultsTextView.text = ""
+            dieRolledView.text = "die rolled"
+
+        }
+        straightRadioButton.setOnClickListener {
+            advantageRoll1.text = ""
+            advantageRoll2.text = ""
+            advantageDie = -1
+            resultsTextView.text = ""
+            dieRolledView.text = "die rolled"
+        }
+        disadvantageRadioButton.setOnClickListener {
+            advantageRoll1.text = ""
+            advantageRoll2.text = ""
+            advantageDie = -1
+            resultsTextView.text = ""
+            dieRolledView.text = "die rolled"
+        }
+
         d4Button.setOnClickListener {
-            val rand = Random().nextInt(4) + 1
-            dieRolledView.text = "d4"
-            resultsTextView.text = rand.toString()
+            rollDie(4)
         }
         d6Button.setOnClickListener {
-            val rand = Random().nextInt(6) + 1
-            dieRolledView.text = "d6"
-            resultsTextView.text = rand.toString()
+            rollDie(6)
         }
         d8Button.setOnClickListener {
-            val rand = Random().nextInt(8) + 1
-            dieRolledView.text = "d8"
-            resultsTextView.text = rand.toString()
+            rollDie(8)
         }
         d10Button.setOnClickListener {
-            val rand = Random().nextInt(10) + 1
-            dieRolledView.text = """d10"""
-            resultsTextView.text = rand.toString()
+            rollDie(10)
         }
         d20Button.setOnClickListener {
-            val rand = Random().nextInt(20) + 1
-            dieRolledView.text = """d20"""
+            rollDie(20)
+        }
+    }
+    fun rollDie(dieSize: Int) {
+        val rand = Random().nextInt(dieSize) + 1
+        dieRolledView.text = "d$dieSize"
+
+        if (!advantageRadioButton.isChecked && !disadvantageRadioButton.isChecked) {
             resultsTextView.text = rand.toString()
+        }
+
+        if (advantageRadioButton.isChecked) {
+            if (rolls[0] == -1) { // first roll
+                advantageDie = dieSize
+                rolls[0] = rand
+                advantageRoll1.text = rand.toString()
+            } else if (advantageRadioButton.isChecked && rolls[1] == -1) { // second roll
+                if (dieSize == advantageDie) {
+                    rolls[1] = rand
+                    advantageRoll2.text = rand.toString()
+                    resultsTextView.text = maxOf(rolls[0], rolls[1]).toString()
+                } else { // treat as first roll
+                    advantageDie = dieSize
+                    rolls[0] = rand
+                    advantageRoll1.text = rand.toString()
+                }
+            } else { // third roll, reset as first roll
+                advantageDie = dieSize
+                rolls[0] = rand
+                rolls[1] = -1
+                advantageRoll1.text = rand.toString()
+                advantageRoll2.text = ""
+                resultsTextView.text = ""
+
+            }
+        }
+        if (disadvantageRadioButton.isChecked) {
+            if (rolls[0] == -1) {
+                advantageDie = dieSize
+                rolls[0] = rand
+                advantageRoll1.text = rand.toString()
+            } else if (disadvantageRadioButton.isChecked && rolls[1] == -1) {
+                if (dieSize == advantageDie) {
+                    rolls[1] = rand
+                    advantageRoll2.text = rand.toString()
+                    resultsTextView.text = minOf(rolls[0], rolls[1]).toString()
+                } else { // treat as first roll
+                    advantageDie = dieSize
+                    rolls[0] = rand
+                    advantageRoll1.text = rand.toString()
+                }
+            } else {
+                advantageDie = dieSize
+                rolls[0] = rand
+                rolls[1] = -1
+                advantageRoll1.text = rand.toString()
+                advantageRoll2.text = ""
+                resultsTextView.text = ""
+            }
         }
     }
 
