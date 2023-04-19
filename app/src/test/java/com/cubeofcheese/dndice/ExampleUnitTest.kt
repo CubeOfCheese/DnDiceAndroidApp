@@ -1,4 +1,4 @@
-package com.cubeofcheese.dndiceandroidapp
+package com.cubeofcheese.dndice
 
 import org.junit.Test
 

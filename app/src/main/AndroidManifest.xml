@@ -9,10 +9,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DnDiceAndroidApp"
+        android:theme="@style/Theme.DnDice"
         tools:targetApi="31">
         <activity
-            android:name="com.cubeofcheese.dndiceandroidapp.MainActivity"
+            android:name="com.cubeofcheese.dndice.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

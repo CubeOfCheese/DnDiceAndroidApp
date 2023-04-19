@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.cubeofcheese.dndiceandroidapp'
+    namespace 'com.cubeofcheese.dndice'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.cubeofcheese.dndiceandroidapp"
+        applicationId "com.cubeofcheese.dndice"
         minSdk 24
         targetSdk 33
         versionCode 1

@@ -1,4 +1,4 @@
-package com.cubeofcheese.dndiceandroidapp
+package com.cubeofcheese.dndice
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,16 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
-import org.w3c.dom.Text
 import java.util.*
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -27,7 +20,6 @@ class CustomFragment : Fragment() {
     lateinit var resultsTextView: TextView
     lateinit var dieRolledView: TextView
     lateinit var dieSizeInput: EditText
-    lateinit var maxTextView: TextView
     lateinit var customRollButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,25 +55,5 @@ class CustomFragment : Fragment() {
             }
             dieRolledView.text = "d" + dieSizeInput.text.toString()
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CustomFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CustomFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

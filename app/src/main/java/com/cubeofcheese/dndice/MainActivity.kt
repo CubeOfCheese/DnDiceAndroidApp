@@ -1,9 +1,9 @@
-package com.cubeofcheese.dndiceandroidapp
+package com.cubeofcheese.dndice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.cubeofcheese.dndiceandroidapp.databinding.ActivityMainBinding
+import com.cubeofcheese.dndice.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
